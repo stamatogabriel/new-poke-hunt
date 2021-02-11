@@ -5,7 +5,7 @@ import { IInfoCity, IPokemon } from "../interfaces";
 
 import { GetPokemonTypes, GetPokemon, GetInfoCity } from "../logical";
 
-import { Container, Input, Form, Button } from "../styles";
+import { Container, Input, Form, Button, Error, InfoWrapper } from "../styles";
 
 export default function Home() {
   const [city, setCity] = useState<string | undefined>();
@@ -36,6 +36,8 @@ export default function Home() {
 
   const handleChange = (event) => {
     setError(undefined);
+    setPoke(undefined);
+    setInfoCity(undefined);
     setCity(event.target.value);
   };
 
@@ -45,23 +47,23 @@ export default function Home() {
         <title>Pokemon Hunt</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <img src='/assets/PokemonLogo.png' alt="Pokemon Logo" />
+      <img src="/assets/PokemonLogo.png" alt="Pokemon Logo" />
       <Form onSubmit={hunt}>
         <Input onChange={handleChange} value={city} />
         <Button type="submit">Gotta catch'em all!'</Button>
-        {error && <span>{error.toString()}</span>}
+        {error && <Error>{error.toString()}</Error>}
       </Form>
-      <div>
+      <InfoWrapper>
         {infoCity && (
           <div>
-            <h3>City: {infoCity.name}</h3>
+            <h3>{infoCity.name}</h3>
             <p>Weather: {infoCity.weather}</p>
             <p>Temperature: {infoCity.temperature} °C</p>
           </div>
         )}
         {poke && (
           <div>
-            <h3>Pokemon: {poke.name}</h3>
+            <h3>{poke.name}</h3>
             <p>Type: {poke.type}</p>
             <img
               src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`}
@@ -69,7 +71,7 @@ export default function Home() {
             />
           </div>
         )}
-      </div>
+      </InfoWrapper>
     </Container>
   );
 }

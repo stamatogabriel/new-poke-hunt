@@ -62,7 +62,7 @@ export default function Home() {
         <Wrapper>
           <Form onSubmit={hunt}>
             <Input onChange={handleChange} value={city} placeholder="Enter the desired city" />
-            <Button type="submit">Gotta catch'em all!'</Button>
+            <Button type="submit">Gotta catch'em all!</Button>
             {error && <Error>{error.toString()}</Error>}
           </Form>
           {infoCity && poke && (

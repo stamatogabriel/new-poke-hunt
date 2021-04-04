@@ -14,6 +14,7 @@ import {
   Error,
   Card,
   PokeWrapper,
+  Loader,
 } from "../styles";
 
 export default function Home() {
@@ -22,10 +23,14 @@ export default function Home() {
   const [infoCity, setInfoCity] = useState<IInfoCity | undefined>();
   const [poke, setPoke] = useState<IPokemon | undefined>();
   const [showPoke, setShowPoke] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const hunt = async (event) => {
     event.preventDefault();
+    setLoading(true);
     setError(undefined);
+    setPoke(undefined)
+    setInfoCity(undefined)
     try {
       const { name, weather, temperature } = await GetInfoCity(city);
 
@@ -35,11 +40,15 @@ export default function Home() {
 
       const { pokemon } = await GetPokemon(type);
 
-      return setPoke(pokemon);
+      setPoke(pokemon);
+
+      return setLoading(false);
     } catch (error) {
       if (error.message) {
+        setLoading(false);
         return setError(error.message);
       }
+      setLoading(false);
       return setError(error);
     }
   };
@@ -61,10 +70,15 @@ export default function Home() {
         <img src="/assets/PokemonLogo.png" alt="Pokemon Logo" />
         <Wrapper>
           <Form onSubmit={hunt}>
-            <Input onChange={handleChange} value={city} placeholder="Enter the desired city" />
+            <Input
+              onChange={handleChange}
+              value={city}
+              placeholder="Enter the desired city"
+            />
             <Button type="submit">Gotta catch'em all!</Button>
             {error && <Error>{error.toString()}</Error>}
           </Form>
+          {loading && <Loader />}
           {infoCity && poke && (
             <Card
               onMouseEnter={() => setShowPoke(true)}

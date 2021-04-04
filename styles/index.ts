@@ -108,6 +108,7 @@ export const Error = styled.span`
   color: ${theme.colors.error};
   font-size: 1.3rem;
   margin-top: 1.5rem;
+  text-shadow: 2px 2px 2px #f5f5f5;
 `;
 
 export const Card = styled.div<Props>`
@@ -162,4 +163,18 @@ export const Card = styled.div<Props>`
 
 export const PokeWrapper = styled.div`
   transform: rotateY(180deg);
+`;
+
+export const Loader = styled.div`
+  border: 16px solid ${theme.colors.error}; /* Light grey */
+  border-top: 16px solid #fff; /* Blue */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spin 2s linear infinite;
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 `;

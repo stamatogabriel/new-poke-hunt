@@ -61,7 +61,7 @@ export default function Home() {
         <img src="/assets/PokemonLogo.png" alt="Pokemon Logo" />
         <Wrapper>
           <Form onSubmit={hunt}>
-            <Input onChange={handleChange} value={city} />
+            <Input onChange={handleChange} value={city} placeholder="Enter the desired city" />
             <Button type="submit">Gotta catch'em all!'</Button>
             {error && <Error>{error.toString()}</Error>}
           </Form>

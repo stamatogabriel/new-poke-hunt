@@ -1,34 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# POKEHUNT
+Application that shows a pokemon according to the current climatic conditions of the chosen city
 
-## Getting Started
+## How to run
 
-First, run the development server:
+You can needed install [Docker and docker-compose](https://www.docker.com/).
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+In the project directory, you can run:<br>
+ `docker-compose up -d`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Runs the app in the development mode.<br>
+Open [http://localhost:8080](http://localhost:8080) to view it in the browser.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## How it works
+After you run the application launch command, a page in your default browser will open. Just type the chosen city in the text box, which will display the local climatic conditions and a pokemon chosen according to the local weather conditions.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+Notes: The displayed temperature, along with the climatic condition, is in degrees Celsius.
 
-## Learn More
+### Pokemon selection criteria
+According to the climatic conditions of the city, a Pokémon based on its type (fire, water, wind, electric, etc.) is displayed following the following rules:
 
-To learn more about Next.js, take a look at the following resources:
+* Places where the temperature is lower (<) than 5° C, an ice pokemon is displayed.
+* Places where the temperature is between (> =) 5°C and (<) 10°C, a water-type pokémon is displayed.
+* Places where the temperature is between 12°C and 15°C, a grass-type pokémon is displayed..
+* Places where the temperature is between 15°C and 21°C, a ground-type pokémon is displayed.
+* Places where the temperature is between 23°C and 27°C, insect-type pokémon (bug) is displayed.
+* Places where the temperature is between 27°C and 33°C inclusive, a rock-type pokémon is displayed.
+* Places where the temperature is higher than 33°C a fire-type pokémon is displayed.
+* For any other temperature, a normal-type pokemon is displayed.
+* And, in case it is raining in the region an electric pokémon (electric) is displayed, regardless of the temperature.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies used
+To create this application we used the ReactJs framework, along with the libraries described below:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+* Axios: for interactions with external API's,
+* Styled-Components: for styling pages and components
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Data from the following APIs were consumed:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+* OpenweatherMap [https://openweathermap.org/api](https://openweathermap.org/api): for real-time weather forecasting information of selected locations
+* PokeAPI [https://pokeapi.co/](https://pokeapi.co/:) for information about pokemons shown on screen

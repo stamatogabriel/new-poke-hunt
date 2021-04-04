@@ -33,7 +33,8 @@ According to the climatic conditions of the city, a Pokémon based on its type (
 ## Technologies used
 To create this application we used the ReactJs framework, along with the libraries described below:
 
-* Axios: for interactions with external API's,
+* Typescript
+* NextJs
 * Styled-Components: for styling pages and components
 
 

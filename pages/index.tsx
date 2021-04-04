@@ -5,13 +5,23 @@ import { IInfoCity, IPokemon } from "../interfaces";
 
 import { GetPokemonTypes, GetPokemon, GetInfoCity } from "../logical";
 
-import { Container, Input, Form, Button, Error, InfoWrapper } from "../styles";
+import {
+  Container,
+  Wrapper,
+  Input,
+  Form,
+  Button,
+  Error,
+  Card,
+  PokeWrapper,
+} from "../styles";
 
 export default function Home() {
   const [city, setCity] = useState<string | undefined>();
   const [error, setError] = useState<string | undefined>();
   const [infoCity, setInfoCity] = useState<IInfoCity | undefined>();
   const [poke, setPoke] = useState<IPokemon | undefined>();
+  const [showPoke, setShowPoke] = useState<boolean>(false);
 
   const hunt = async (event) => {
     event.preventDefault();
@@ -42,36 +52,44 @@ export default function Home() {
   };
 
   return (
-    <Container>
+    <>
       <Head>
         <title>Pokemon Hunt</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <img src="/assets/PokemonLogo.png" alt="Pokemon Logo" />
-      <Form onSubmit={hunt}>
-        <Input onChange={handleChange} value={city} />
-        <Button type="submit">Gotta catch'em all!'</Button>
-        {error && <Error>{error.toString()}</Error>}
-      </Form>
-      <InfoWrapper>
-        {infoCity && (
-          <div>
-            <h3>{infoCity.name}</h3>
-            <p>Weather: {infoCity.weather}</p>
-            <p>Temperature: {infoCity.temperature} °C</p>
-          </div>
-        )}
-        {poke && (
-          <div>
-            <h3>{poke.name}</h3>
-            <p>Type: {poke.type}</p>
-            <img
-              src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`}
-              alt={poke.name}
-            />
-          </div>
-        )}
-      </InfoWrapper>
-    </Container>
+      <Container>
+        <img src="/assets/PokemonLogo.png" alt="Pokemon Logo" />
+        <Wrapper>
+          <Form onSubmit={hunt}>
+            <Input onChange={handleChange} value={city} />
+            <Button type="submit">Gotta catch'em all!'</Button>
+            {error && <Error>{error.toString()}</Error>}
+          </Form>
+          {infoCity && poke && (
+            <Card
+              onMouseEnter={() => setShowPoke(true)}
+              onMouseLeave={() => setShowPoke(false)}
+              showPoke={showPoke}
+              pokeImage={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${poke.id}.png`}
+            >
+              {!showPoke && (
+                <div>
+                  <h3>{infoCity.name}</h3>
+                  <p>Weather: {infoCity.weather}</p>
+                  <p>Temperature: {infoCity.temperature} °C</p>
+                </div>
+              )}
+
+              {showPoke && (
+                <PokeWrapper>
+                  <h3>{poke.name}</h3>
+                  <p>Type: {poke.type}</p>
+                </PokeWrapper>
+              )}
+            </Card>
+          )}
+        </Wrapper>
+      </Container>
+    </>
   );
 }

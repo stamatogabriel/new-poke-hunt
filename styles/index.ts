@@ -1,8 +1,8 @@
 import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 
 interface Props {
-  showPoke: boolean;
-  pokeImage: string;
+  showPoke?: boolean;
+  pokeImage?: string;
 }
 
 export const GlobalStyle = createGlobalStyle`
